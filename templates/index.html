@@ -42,6 +42,10 @@
     <button id="save" disabled="disabled" class="btn"><i class="fa-solid fa-cloud-arrow-up"></i> Save/Upload</button>
 </div>
 <p>&nbsp;</p>
+    <div id="saved-audio-messages" style="color: #66ff66; text-align: center;">
+        <h2>Saved to Server Successfully</h2>
+<!--        <h2>Saved Voice files:</h2>-->
+    </div>
 <p>&nbsp;</p>
 <blockquote>
     <table style="border-collapse: collapse; width: 101.643%; height: 76px;" border="1">
@@ -95,9 +99,9 @@
         </tr>
         </tbody>
     </table>
-    <div id="saved-audio-messages">
-        <h2>Saved Voice files:</h2>
-    </div>
+<!--    <div id="saved-audio-messages">-->
+<!--        <h2>Saved Voice files:</h2>-->
+<!--    </div>-->
     <p>&nbsp;</p>
 </blockquote>
 <div class="elementor-element elementor-element-6a79820 elementor-widget elementor-widget-heading" data-id="6a79820"
@@ -157,6 +161,7 @@
       let audio;
 
       recordButton.addEventListener('click', async () => {
+        document.getElementById("saved-audio-messages").hidden=true;
         recordButton.setAttribute('disabled', true);
         stopButton.removeAttribute('disabled');
         playButton.setAttribute('disabled', true);
@@ -165,7 +170,7 @@
           recorder = await recordAudio();
         }
         recorder.start();
-        await sleep(1500);
+        await sleep(2000);
         stopButton.click();
       });
 
@@ -194,7 +199,8 @@
             body: JSON.stringify({ audioFile: base64AudioMessage })
           }).then(res => {
             if (res.status === 200) {
-              return populateAudioMessages();
+               document.getElementById("saved-audio-messages").hidden=false;
+              //return populateAudioMessages();
             }
             console.log('Invalid status saving audio message: ' + res.status);
           });
@@ -222,7 +228,9 @@
         });
       };
 
-      populateAudioMessages();
+
+      document.getElementById("saved-audio-messages").hidden=true;
+      //populateAudioMessages();
 
 
 
