@@ -28,7 +28,6 @@ def uploadAudioFile():
 @app.route('/audio', methods=['GET'])
 def allAudioFiles():
     fileNames = os.listdir("audio-files")
-    print(fileNames)
     resp = jsonify({"messageFilenames": fileNames})
     resp.status_code = 200
     return resp
@@ -37,6 +36,13 @@ def allAudioFiles():
 @app.route('/play/<path:filename>')
 def play_file(filename):
     return send_from_directory('audio-files/', filename)
+
+
+@app.route('/totalFiles')
+def totalFiles():
+    filesCount = len(os.listdir("audio-files"))
+    print(filesCount)
+    return jsonify({'totalFiles': filesCount})
 
 
 ####################################################################################

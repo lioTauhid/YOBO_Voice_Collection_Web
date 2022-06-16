@@ -148,7 +148,8 @@
                             </li>
                             <li style="text-align: left;">
                                 <h3><span style="color: #008080;"><span style="text-align: center;">After clicking the
-                                            record button each time, you will have 2 second to say the words & the
+                                            record button each time, countdown will start for 2 second, then will have
+                                            2 second to say the words & the
                                             recording will be stopped automatically.</span></span>
                                 </h3>
                             </li>
@@ -256,7 +257,7 @@
             await sleep(1000);
             messageText.innerHTML = "Recording in progress...";
             audioWav.hidden = false;
-            await sleep(500);
+            await sleep(100);
 
             recordButton.setAttribute('disabled', true);
             stopButton.removeAttribute('disabled');
