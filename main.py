@@ -4,6 +4,8 @@ from flask_sqlalchemy import SQLAlchemy
 import base64
 import os
 
+from sqlalchemy.orm import validates
+
 app = Flask(__name__)
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
@@ -82,6 +84,24 @@ class User(db.Model):
         self.email = email
         self.phone = phone
         self.address = address
+
+    @validates('email')
+    def validate_email(self, key, address):
+        if '@' not in address:
+            raise ValueError("failed simple email validation")
+        return address
+
+    @validates('address')
+    def validate_address(self, key, address):
+        if len(address) < 4:
+            raise ValueError("failed simple address validation")
+        return address
+
+    @validates('name')
+    def validate_name(self, key, address):
+        if len(address) < 2:
+            raise ValueError("failed simple userName validation")
+        return address
 
 
 if __name__ == "__main__":
