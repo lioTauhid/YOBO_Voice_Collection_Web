@@ -15,7 +15,7 @@ db = SQLAlchemy(app)
 
 @app.route('/')
 def home():
-    return render_template('save-user.html')
+    return render_template('index2.html')
 
 
 @app.route('/audio', methods=['POST'])

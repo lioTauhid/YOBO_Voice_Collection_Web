@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Record YOBO and save audio</title>
+    <style>
+        .main-block {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100%;
+            background: blue;
+            padding: 0;
+            margin: 0;
+            font-family: Roboto, Arial, sans-serif;
+            font-size: 14px;
+        }
+
+        form {
+            padding: 25px;
+            margin: 40px;
+            box-shadow: 0 2px 5px #f5f5f5;
+            background: #f5f5f5;
+        }
+
+        .fas {
+            margin: 25px 10px 0;
+            font-size: 72px;
+            color: #fff;
+        }
+
+        .fa-envelope {
+            transform: rotate(-20deg);
+        }
+
+        .fa-at,
+        .fa-mail-bulk {
+            transform: rotate(10deg);
+        }
+
+        input,
+        textarea {
+            width: calc(100% - 18px);
+            padding: 8px;
+            margin-bottom: 20px;
+            border: 1px solid #1c87c9;
+            outline: none;
+        }
+
+        input::placeholder {
+            color: #666;
+        }
+
+        button:hover {
+            background: #2371a0;
+        }
+
+        @media (min-width: 568px) {
+            .main-block {
+                flex-direction: column;
+            }
+
+            .left-part,
+            form {
+                width: 50%;
+            }
+
+            .fa-envelope {
+                margin-top: 0;
+                margin-left: 20%;
+            }
+
+            .fa-at {
+                margin-top: -10%;
+                margin-left: 65%;
+            }
+
+            .fa-mail-bulk {
+                margin-top: 2%;
+                margin-left: 28%;
+            }
+        }
+
+        audio {
+            display: block;
+            margin: 5px;
+        }
+
+        .btn {
+            background-color: AliceBlue;
+            border: 2;
+            border-radius: 12px;
+            padding: 12px 16px;
+            font-size: 18px;
+            padding: 15px 32px;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: LightBlue;
+        }
+
+        .middle {
+            color: blue;
+            text-align: center;
+            font-size: 30px;
+            font-weight: bold;
+        }
+
+        .bar {
+            width: 10px;
+            height: 70px;
+            background: #fff;
+            display: inline-block;
+            transform-origin: bottom center;
+            border-top-right-radius: 20px;
+            border-top-left-radius: 20px;
+            /*   box-shadow:5px 10px 20px inset rgba(255,23,25.2); */
+            animation: loader 1.2s linear infinite;
+        }
+
+        .bar1 {
+            animation-delay: 0.1s;
+        }
+
+        .bar2 {
+            animation-delay: 0.2s;
+        }
+
+        .bar3 {
+            animation-delay: 0.3s;
+        }
+
+        .bar4 {
+            animation-delay: 0.4s;
+        }
+
+        .bar5 {
+            animation-delay: 0.5s;
+        }
+
+        .bar6 {
+            animation-delay: 0.6s;
+        }
+
+        .bar7 {
+            animation-delay: 0.7s;
+        }
+
+        .bar8 {
+            animation-delay: 0.8s;
+        }
+
+        @keyframes loader {
+            0% {
+                transform: scaleY(0.1);
+                background: ;
+            }
+
+            50% {
+                transform: scaleY(1);
+                background: blue;
+            }
+
+            100% {
+                transform: scaleY(0.1);
+                background: transparent;
+            }
+        }
+
+        /* The Modal (background) */
+        .modal {
+            display: none;
+            /* Hidden by default */
+            position: fixed;
+            /* Stay in place */
+            z-index: 1;
+            /* Sit on top */
+            padding-top: 80px;
+            /* Location of the box */
+            left: 0;
+            top: 0;
+            width: 100%;
+            /* Full width */
+            height: 100%;
+            /* Full height */
+            overflow: auto;
+            /* Enable scroll if needed */
+            background-color: rgb(0, 0, 0);
+            /* Fallback color */
+            background-color: rgba(0, 0, 0, 0.4);
+            /* Black w/ opacity */
+        }
+
+        /* Modal Content */
+        .modal-content {
+            background-color: #fefefe;
+            margin: auto;
+            border: 1px solid #888;
+            width: 80%;
+            padding: 40px;
+            background: blue;
+        }
+
+        /* The Close Button */
+        .close {
+            color: #aaaaaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/solid.min.css">
+</head>
+
+<body>
+    <div id="myModal" class="modal">
+
+        <!-- Modal content -->
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h1 style="color: #fff; text-align: start; padding: 30px;"><img
+                    src="https://sp-ao.shortpixel.ai/client/to_webp,q_glossy,ret_img,w_390/https://megamindtech.com/wp-content/uploads/2022/03/logo-1.png"
+                    alt="" width="292" height="59" /></h1>
+            <div class="main-block">
+                <form onsubmit="return false">
+                    <h1>Please fill-up user form. We will send your gift</h1>
+                    <div class="info">
+                        <input id="nameF" class="fname" type="text" name="name" placeholder="Full name">
+                        <input id="emailF" type="text" name="name" placeholder="Email">
+                        <input id="phoneF" type="text" name="name" placeholder="Phone number">
+                        <input id="addressF" type="text" name="name" placeholder="Address">
+                    </div>
+                    <button id="submit" style="width: 100%;
+            padding: 10px;
+            border: none;
+            background: #1c87c9;
+            font-size: 16px;
+            font-weight: 400;
+            color: #fff;">Submit</button>
+                </form>
+            </div>
+            <script>
+                const nameF = document.querySelector('#nameF');
+                const emailF = document.querySelector('#emailF');
+                const phoneF = document.querySelector('#phoneF');
+                const addressF = document.querySelector('#addressF');
+                const submit = document.querySelector('#submit');
+                const span = document.getElementsByClassName("close")[0];
+
+
+                submit.addEventListener('click', () => {
+                    fetch('/saveUser', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            "userName": "Lio",
+                            "email": "lio@gamil.com",
+                            "phone": "865657",
+                            "address": "Shibpur"
+                        })
+                    }).then(res => {
+                        if (res.status === 200) {
+                            console.log('Succesed: ' + res);
+                        } else {
+                            console.log('Invalid status, check all fields: ' + res.status);
+                        }
+                        modal.style.display = "none";
+                    });
+                });
+
+                // When the user clicks on <span> (x), close the modal
+                span.onclick = function () {
+                    modal.style.display = "none";
+                }
+
+            </script>
+        </div>
+
+    </div>
+    <p>&nbsp;</p>
+    <h1 style="color: #5e9ca0; text-align: center;"><img
+            src="https://sp-ao.shortpixel.ai/client/to_webp,q_glossy,ret_img,w_390/https://megamindtech.com/wp-content/uploads/2022/03/logo-1.png"
+            alt="" width="292" height="59" /></h1>
+    <p>&nbsp;</p>
+    <h1 style="color: #5e9ca0; text-align: center;">Want a gift? Just say YOBO</h1>
+    <p>&nbsp;</p>
+
+    <div style="text-align: center;">
+        <button id="record" class="btn"><i class="fa-solid fa-microphone"></i> Record</button>
+        <button id="stop" disabled="disabled" class="btn"><i class="fa-solid fa-stop"></i> Stop</button>
+        <button id="play" disabled="disabled" class="btn"><i class="fa-solid fa-play"></i> Play</button>
+        <button id="save" disabled="disabled" class="btn"><i class="fa-solid fa-cloud-arrow-up"></i>
+            Save/Upload
+        </button>
+    </div>
+    <p>&nbsp;</p>
+    <div class="middle" id="wav">
+        <div class="bar bar1"></div>
+        <div class="bar bar2"></div>
+        <div class="bar bar3"></div>
+        <div class="bar bar4"></div>
+        <div class="bar bar5"></div>
+        <div class="bar bar6"></div>
+        <div class="bar bar7"></div>
+        <div class="bar bar8"></div>
+    </div>
+    <div id="saved-audio-messages" style="color: blue; text-align: center; font-size: 30px; font-weight: bold;">
+        Saved to Server Successfully
+    </div>
+    <p>&nbsp;</p>
+    <blockquote>
+        <table style="border-collapse: collapse; width: 101.643%; height: 76px;" border="1">
+            <tbody>
+                <tr style="height: 10px;">
+                    <td style="width: 50%; height: 10px;">
+                        <h2 style="color: #2e6c80; text-align: center;">Instructions</h2>
+                    </td>
+                    <td style="width: 50%; height: 10px;">
+                        <h2 style="text-align: center;"><span style="color: #2e6c80;">Some useful features</span></h2>
+                    </td>
+                </tr>
+                <tr style="height: 135px;">
+                    <td style="width: 50%; height: 66px;">
+                        <ul>
+                            <li style="text-align: left;">
+                                <h3 style="text-align: left;"><span style="color: #008080;"><span
+                                            style="text-align: center;">Click on record the button to record your voice,
+                                            say 'Yobo'.</span> </span>
+                                </h3>
+                            </li>
+                            <li style="text-align: left;">
+                                <h3><span style="color: #008080;"><span style="text-align: center;">After clicking the
+                                            record button each time, countdown will start for 2 second, then will have
+                                            2 second to say the words & the
+                                            recording will be stopped automatically.</span></span>
+                                </h3>
+                            </li>
+                            <li style="text-align: left;">
+                                <h3><span style="color: #008080;"><span style="text-align: center;">Then click on
+                                            save/upload to upload voice to our server.</span></span>
+                                </h3>
+                            </li>
+                        </ul>
+                    </td>
+                    <td style="width: 50%; height: 66px;">
+                        <div class="elementor-widget-container">
+                            <blockquote>
+                                <ul>
+                                    <li>
+                                        <h3><span style="color: #5e9ca0;">Robo Receptionist:</span><span
+                                                style="color: #5e9ca0;"> Interacts&nbsp; with people at first point of
+                                                contact.</span>
+                                        </h3>
+                                    </li>
+                                </ul>
+                            </blockquote>
+                        </div>
+                        <blockquote>
+                            <ul>
+                                <li class="elementor-heading-title elementor-size-xl" style="text-align: left;">
+                                    <h3 style="text-align: left;"><span style="color: #5e9ca0;">FAQ Bot: Understands and
+                                            answers frequently asked questions related to your business.</span>
+                                    </h3>
+                                </li>
+                            </ul>
+                        </blockquote>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <!--    <div id="saved-audio-messages">-->
+        <!--        <h2>Saved Voice files:</h2>-->
+        <!--    </div>-->
+        <p>&nbsp;</p>
+    </blockquote>
+    <div class="elementor-element elementor-element-6a79820 elementor-widget elementor-widget-heading" data-id="6a79820"
+        data-element_type="widget" data-widget_type="heading.default">
+        <div class="elementor-widget-container">
+            <p>&nbsp;</p>
+        </div>
+    </div>
+    <h4 style="color: #2e6c80; text-align: center;">Thank you for contributing us with your valuable voice.</h4>
+    <p style="text-align: center;">For more information visit <a title="MegaMindTech" href="https://megamindtech.com/"
+            target="_blank">https://megamindtech.com/</a></p>
+    <p style="text-align: center;">&copy;2022 Powered by MegaMind. All Rights Reserved.</p>
+
+    <script>
+        const recordAudio = () =>
+            new Promise(async resolve => {
+                const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                const mediaRecorder = new MediaRecorder(stream);
+                let audioChunks = [];
+
+                mediaRecorder.addEventListener('dataavailable', event => {
+                    audioChunks.push(event.data);
+                });
+
+                const start = () => {
+                    audioChunks = [];
+                    mediaRecorder.start();
+                };
+
+                const stop = () =>
+                    new Promise(resolve => {
+                        mediaRecorder.addEventListener('stop', () => {
+                            const audioBlob = new Blob(audioChunks, { type: 'audio/mpeg' });
+                            const audioUrl = URL.createObjectURL(audioBlob);
+                            const audio = new Audio(audioUrl);
+                            const play = () => audio.play();
+                            resolve({ audioChunks, audioBlob, audioUrl, play });
+                        });
+
+                        mediaRecorder.stop();
+                    });
+
+                resolve({ start, stop });
+            });
+
+        const sleep = time => new Promise(resolve => setTimeout(resolve, time));
+
+        const recordButton = document.querySelector('#record');
+        const stopButton = document.querySelector('#stop');
+        const playButton = document.querySelector('#play');
+        const saveButton = document.querySelector('#save');
+        const messageText = document.querySelector('#saved-audio-messages');
+        const audioWav = document.querySelector('#wav');
+        //const savedAudioMessagesContainer = document.querySelector('#saved-audio-messages');
+        const modal = document.querySelector("#myModal");
+
+        let recorder;
+        let audio;
+
+        recordButton.addEventListener('click', async () => {
+          modal.style.display = "block";
+
+            messageText.hidden = false;
+            messageText.innerHTML = "Recording will start in 2 second";
+            await sleep(1000);
+            messageText.innerHTML = "Recording will start in 1 second";
+            await sleep(1000);
+            messageText.innerHTML = "Recording will start in 0 second";
+            await sleep(1000);
+            messageText.innerHTML = "Recording in progress...";
+            audioWav.hidden = false;
+            await sleep(100);
+
+            recordButton.setAttribute('disabled', true);
+            stopButton.removeAttribute('disabled');
+            playButton.setAttribute('disabled', true);
+            saveButton.setAttribute('disabled', true);
+            if (!recorder) {
+                recorder = await recordAudio();
+            }
+            recorder.start();
+            await sleep(2000);
+            stopButton.click();
+        });
+
+        stopButton.addEventListener('click', async () => {
+            recordButton.removeAttribute('disabled');
+            stopButton.setAttribute('disabled', true);
+            playButton.removeAttribute('disabled');
+            saveButton.removeAttribute('disabled');
+            messageText.hidden = true;
+            audioWav.hidden = true;
+            audio = await recorder.stop();
+            audio.play();
+        });
+
+        playButton.addEventListener('click', () => {
+            audio.play();
+        });
+
+        saveButton.addEventListener('click', () => {
+            const reader = new FileReader();
+            reader.readAsDataURL(audio.audioBlob);
+            reader.onload = () => {
+                const base64AudioMessage = reader.result.split(',')[1];
+
+                fetch('/audio', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ audioFile: base64AudioMessage })
+                }).then(res => {
+                    if (res.status === 200) {
+                        messageText.innerHTML = "Saved to Server Successfully";
+                        messageText.hidden = false;
+                        //return populateAudioMessages();
+                    }
+                    console.log('Invalid status saving audio message: ' + res.status);
+                });
+            };
+        })
+
+        //recordButton.addEventListener('mousedown', () => {
+        //document.getElementById("saved-audio-messages").hidden=false;
+        //console.log('long press');
+        //document.getElementById("saved-audio-messages").style.color = 'red';
+        //document.getElementById("saved-audio-messages").innerHTML = "Date : " + Date();});
+        //recordButton.addEventListener('mouseup', () => {
+        //console.log('long press release');});
+
+        const populateAudioMessages = () => {
+            return fetch('/audio').then(res => {
+                if (res.status === 200) {
+                    console.log(res);
+                    return res.json().then(json => {
+                        json.messageFilenames.forEach(filename => {
+                            let audioElement = document.querySelector(`[data-audio-filename="${filename}"]`);
+                            if (!audioElement) {
+                                audioElement = document.createElement('audio');
+                                audioElement.src = `/play/${filename}`;
+                                audioElement.setAttribute('data-audio-filename', filename);
+                                audioElement.setAttribute('controls', true);
+                                savedAudioMessagesContainer.appendChild(audioElement);
+                            }
+                        });
+                    });
+                }
+                console.log('Invalid status getting messages 2: ' + res.status);
+            });
+        };
+
+        audioWav.hidden = true;
+        messageText.hidden = true;
+      //populateAudioMessages();
+
+
+    </script>
+</body>
+
+</html>

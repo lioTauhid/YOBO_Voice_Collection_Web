@@ -5,7 +5,6 @@
 <style>
 body {font-family: Arial, Helvetica, sans-serif;}
 
-
         h1 {
             margin: 0 0 20px;
             font-weight: 400;
@@ -109,24 +108,24 @@ body {font-family: Arial, Helvetica, sans-serif;}
   display: none; /* Hidden by default */
   position: fixed; /* Stay in place */
   z-index: 1; /* Sit on top */
-  padding-top: 100px; /* Location of the box */
+  padding-top: 80px; /* Location of the box */
   left: 0;
   top: 0;
   width: 100%; /* Full width */
   height: 100%; /* Full height */
   overflow: auto; /* Enable scroll if needed */
   background-color: rgb(0,0,0); /* Fallback color */
-  background: blue;
-
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
 }
 
 /* Modal Content */
 .modal-content {
   background-color: #fefefe;
   margin: auto;
-  padding: 20px;
   border: 1px solid #888;
   width: 80%;
+  padding: 40px;
+  background: blue;
 }
 
 /* The Close Button */
@@ -155,15 +154,13 @@ body {font-family: Arial, Helvetica, sans-serif;}
 <!-- The Modal -->
 <div id="myModal" class="modal">
 
+  <!-- Modal content -->
+  <div class="modal-content">
+          <span class="close">&times;</span>
 <h1 style="color: #fff; text-align: start; padding: 30px;"><img
             src="https://sp-ao.shortpixel.ai/client/to_webp,q_glossy,ret_img,w_390/https://megamindtech.com/wp-content/uploads/2022/03/logo-1.png"
             alt="" width="292" height="59" /></h1>
     <div class="main-block">
-        <div class="left-part">
-            <i class="fas fa-envelope"></i>
-            <i class="fas fa-at"></i>
-            <i class="fas fa-mail-bulk"></i>
-        </div>
         <form onsubmit="return false">
             <h1>Please fill-up user form. We will send your gift</h1>
             <div class="info">
@@ -203,7 +200,7 @@ body {font-family: Arial, Helvetica, sans-serif;}
         });
 
     </script>
-
+  </div>
 
 </div>
 
