@@ -15,7 +15,7 @@ db = SQLAlchemy(app)
 
 @app.route('/')
 def home():
-    return render_template('index.html')
+    return render_template('save-user.html')
 
 
 @app.route('/audio', methods=['POST'])
@@ -88,19 +88,19 @@ class User(db.Model):
     @validates('email')
     def validate_email(self, key, address):
         if '@' not in address:
-            raise ValueError("failed simple email validation")
+            raise ValueError("failed email validation")
         return address
 
     @validates('address')
     def validate_address(self, key, address):
         if len(address) < 4:
-            raise ValueError("failed simple address validation")
+            raise ValueError("failed address validation")
         return address
 
     @validates('name')
     def validate_name(self, key, address):
         if len(address) < 2:
-            raise ValueError("failed simple userName validation")
+            raise ValueError("failed userName validation")
         return address
 
 

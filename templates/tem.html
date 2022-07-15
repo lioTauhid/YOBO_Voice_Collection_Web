@@ -1,21 +1,239 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
-.btn {
-  background-color: AliceBlue;
-  border: 2;
-  border-radius: 12px;
-  padding: 12px 16px;
-  font-size: 16px;
+body {font-family: Arial, Helvetica, sans-serif;}
+
+
+        h1 {
+            margin: 0 0 20px;
+            font-weight: 400;
+            color: #1c87c9;
+        }
+
+        p {
+            margin: 0 0 5px;
+        }
+
+        .main-block {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100%;
+            background: blue;
+            padding: 0;
+            margin: 0;
+            font-family: Roboto, Arial, sans-serif;
+            font-size: 14px;
+        }
+
+        form {
+            padding: 25px;
+            margin: 40px;
+            box-shadow: 0 2px 5px #f5f5f5;
+            background: #f5f5f5;
+        }
+
+        .fas {
+            margin: 25px 10px 0;
+            font-size: 72px;
+            color: #fff;
+        }
+
+        .fa-envelope {
+            transform: rotate(-20deg);
+        }
+
+        .fa-at,
+        .fa-mail-bulk {
+            transform: rotate(10deg);
+        }
+
+        input,
+        textarea {
+            width: calc(100% - 18px);
+            padding: 8px;
+            margin-bottom: 20px;
+            border: 1px solid #1c87c9;
+            outline: none;
+        }
+
+        input::placeholder {
+            color: #666;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            background: #1c87c9;
+            font-size: 16px;
+            font-weight: 400;
+            color: #fff;
+        }
+
+        button:hover {
+            background: #2371a0;
+        }
+
+        @media (min-width: 568px) {
+            .main-block {
+                flex-direction: column;
+            }
+
+            .left-part,
+            form {
+                width: 50%;
+            }
+
+            .fa-envelope {
+                margin-top: 0;
+                margin-left: 20%;
+            }
+
+            .fa-at {
+                margin-top: -10%;
+                margin-left: 65%;
+            }
+
+            .fa-mail-bulk {
+                margin-top: 2%;
+                margin-left: 28%;
+            }
+        }
+
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background: blue;
+
+}
+
+/* Modal Content */
+.modal-content {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+}
+
+/* The Close Button */
+.close {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
   cursor: pointer;
 }
-.btn:hover {
-  background-color: LightBlue;
-}
-    </style>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/solid.min.css">
-    <div style="text-align: center;">
-        <button id="record" class="btn"><i class="fa-solid fa-microphone"></i> Record</button>
-        <button id="stop" disabled="disabled" class="btn"><i class="fa-solid fa-microphone"></i> Stop</button>
-        <button id="play" disabled="disabled" class="btn"><i class="fa-solid fa-microphone"></i> Play</button>
-        <button id="save" disabled="disabled" class="btn"><i class="fa-solid fa-microphone"></i> Save</button>
+</style>
+</head>
+<body>
+
+<h2>Modal Example</h2>
+
+<!-- Trigger/Open The Modal -->
+<button id="myBtn">Open Modal</button>
+
+<!-- The Modal -->
+<div id="myModal" class="modal">
+
+<h1 style="color: #fff; text-align: start; padding: 30px;"><img
+            src="https://sp-ao.shortpixel.ai/client/to_webp,q_glossy,ret_img,w_390/https://megamindtech.com/wp-content/uploads/2022/03/logo-1.png"
+            alt="" width="292" height="59" /></h1>
+    <div class="main-block">
+        <div class="left-part">
+            <i class="fas fa-envelope"></i>
+            <i class="fas fa-at"></i>
+            <i class="fas fa-mail-bulk"></i>
+        </div>
+        <form onsubmit="return false">
+            <h1>Please fill-up user form. We will send your gift</h1>
+            <div class="info">
+                <input id="nameF" class="fname" type="text" name="name" placeholder="Full name">
+                <input id="emailF" type="text" name="name" placeholder="Email">
+                <input id="phoneF" type="text" name="name" placeholder="Phone number">
+                <input id="addressF" type="text" name="name" placeholder="Address">
+            </div>
+            <button id="submit" type="submit" href="/">Submit</button>
+        </form>
     </div>
+    <script>
+        const nameF = document.querySelector('#nameF');
+        const emailF = document.querySelector('#emailF');
+        const phoneF = document.querySelector('#phoneF');
+        const addressF = document.querySelector('#addressF');
+        const submit = document.querySelector('#submit');
+
+        submit.addEventListener('click', () => {
+            fetch('/saveUser', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    "userName": "Lio",
+                    "email": "lio@gamil.com",
+                    "phone": "865657",
+                    "address": "Shibpur"
+                })
+            }).then(res => {
+                if (res.status === 200) {
+                    console.log('Succesed: ' + res);
+                } else {
+                    console.log('Invalid status, check all fields: ' + res.status);
+                }
+                  modal.style.display = "none";
+            });
+        });
+
+    </script>
+
+
+</div>
+
+<script>
+// Get the modal
+var modal = document.getElementById("myModal");
+
+// Get the button that opens the modal
+var btn = document.getElementById("myBtn");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks the button, open the modal
+btn.onclick = function() {
+  modal.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+  modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+</script>
+
+</body>
+</html>
