@@ -95,7 +95,7 @@ saveButton.addEventListener('click', () => {
             body: JSON.stringify({ audioFile: base64AudioMessage })
         }).then(res => {
             if (res.status === 200) {
-                messageText.innerHTML = "Saved to Server Successfully";
+                messageText.innerHTML = "Voice Saved to Server Successfully";
                 messageText.hidden = false;
                 modal.style.display = "block";
                 //return populateAudioMessages();
@@ -145,6 +145,7 @@ phoneF = document.querySelector('#phoneF');
 addressF = document.querySelector('#addressF');
 submit = document.querySelector('#submit');
 span = document.getElementsByClassName("close")[0];
+const error = document.querySelector('#error');
 
 submit.addEventListener('click', () => {
     fetch('/saveUser', {
@@ -160,7 +161,9 @@ submit.addEventListener('click', () => {
         if (res.status === 200) {
             console.log('Succesed: ' + res);
             modal.style.display = "none";
+            error.hidden = true;
         } else {
+            error.hidden = false;
             console.log('Invalid status, check all fields: ' + res.status);
         }
     });
