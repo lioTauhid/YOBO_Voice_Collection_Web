@@ -11,11 +11,25 @@ app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
 app.config['SECRET_KEY'] = "random string"
 db = SQLAlchemy(app)
+WEB_APP_DIR = 'templates'
 
 
 @app.route('/')
 def home():
-    return render_template('index2.html')
+    return render_template('index.html')
+
+
+@app.route('/<path:name>')
+def return_web_file(name):
+    """Helper function to render static web page"""
+    dataList = str(name).split('/')
+    DIR_NAME = WEB_APP_DIR
+
+    if len(dataList) > 1:
+        for i in range(0, len(dataList) - 1):
+            DIR_NAME += '/' + dataList[i]
+
+    return send_from_directory(DIR_NAME, dataList[-1])
 
 
 @app.route('/audio', methods=['POST'])
