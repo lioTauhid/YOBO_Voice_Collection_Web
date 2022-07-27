@@ -66,7 +66,7 @@ def totalFiles():
 @app.route('/saveUser', methods=['POST'])
 def saveUser():
     data = request.get_json(force=True)
-    user = User(data['userName'], data['email'], data['phone'], data['address'])
+    user = User(data['userName'], data['email'], data['phone'], 'no address')
     db.session.add(user)
     db.session.commit()
     return jsonify({'info': 'user saved'})
@@ -105,11 +105,11 @@ class User(db.Model):
             raise ValueError("failed email validation")
         return address
 
-    @validates('address')
-    def validate_address(self, key, address):
-        if len(address) < 4:
-            raise ValueError("failed address validation")
-        return address
+    # @validates('address')
+    # def validate_address(self, key, address):
+    #     if len(address) < 4:
+    #         raise ValueError("failed address validation")
+    #     return address
 
     @validates('name')
     def validate_name(self, key, address):

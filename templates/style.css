@@ -164,7 +164,7 @@ audio {
 
 /* The Modal (background) */
 .modal {
-    /* display: none; */
+    display: none;
     /* Hidden by default */
     position: fixed;
     /* Stay in place */

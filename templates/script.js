@@ -142,7 +142,7 @@ messageText.hidden = true;
 nameF = document.querySelector('#nameF');
 emailF = document.querySelector('#emailF');
 phoneF = document.querySelector('#phoneF');
-addressF = document.querySelector('#addressF');
+// addressF = document.querySelector('#addressF');
 submit = document.querySelector('#submit');
 span = document.getElementsByClassName("close")[0];
 const error = document.querySelector('#error');
@@ -155,12 +155,13 @@ submit.addEventListener('click', () => {
             "userName": nameF.value,
             "email": emailF.value,
             "phone": phoneF.value,
-            "address": addressF.value
+            "address": "addressF.value"
         })
     }).then(res => {
         if (res.status === 200) {
             console.log('Succesed: ' + res);
             modal.style.display = "none";
+            messageText.innerHTML = "Thank you! You have entered the draw.If you win we will call you back.";
             error.hidden = true;
         } else {
             error.hidden = false;
