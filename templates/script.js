@@ -95,7 +95,7 @@ saveButton.addEventListener('click', () => {
             body: JSON.stringify({ audioFile: base64AudioMessage })
         }).then(res => {
             if (res.status === 200) {
-                messageText.innerHTML = "Voice Saved to Server Successfully";
+                messageText.innerHTML = "Thank You!";
                 messageText.hidden = false;
                 modal.style.display = "block";
                 //return populateAudioMessages();
@@ -161,8 +161,9 @@ submit.addEventListener('click', () => {
         if (res.status === 200) {
             console.log('Succesed: ' + res);
             modal.style.display = "none";
-            messageText.innerHTML = "Thank you! You have entered the draw.If you win we will call you back.";
+            messageText.innerHTML = "Thank you! You have entered the draw. If you win we will call you back.";
             error.hidden = true;
+            saveButton.setAttribute('disabled', true);
         } else {
             error.hidden = false;
             console.log('Invalid status, check all fields: ' + res.status);
