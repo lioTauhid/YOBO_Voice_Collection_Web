@@ -11,6 +11,9 @@ If you need to collect voice data from user then it will be helpfull.
 This project runs with Python. Also install dependencies listed to requirements.py by following command :
 * pip install -r requirements.txt
 
+## Live Sapmle
+http://yobo-voice.megamindtech.com/
+
 ## Usage
 1. Start the main.py
 2. Go to "http://&lt;address&gt;:&lt;port&gt;/"
