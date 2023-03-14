@@ -14,8 +14,6 @@ This project runs with Python. Also install dependencies listed to requirements.
 ## Live Sapmle
 http://yobo-voice.megamindtech.com/
 
-[Some title here](FILE_NAME.pdf)
-
 ## Usage
 1. Start the main.py
 2. Go to "http://&lt;address&gt;:&lt;port&gt;/"
